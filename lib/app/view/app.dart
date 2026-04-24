@@ -27,10 +27,10 @@ class AppWidget extends StatelessWidget {
         navigatorKey: navigatorKey,
         theme: ThemeData(
           colorScheme: ColorScheme.light(
-            primary: _claudeOrange,
-            primaryContainer: _claudeOrange.withValues(alpha: 0.12),
-            onPrimaryContainer: _claudeOrange,
-            secondary: _claudeOrange,
+            primary: _orange,
+            primaryContainer: _orange.withValues(alpha: 0.12),
+            onPrimaryContainer: _orange,
+            secondary: _orange,
             surface: _warmSurface,
             onSurface: _darkText,
             onSurfaceVariant: _mutedText,
@@ -69,19 +69,19 @@ class AppWidget extends StatelessWidget {
             bodySmall: TextStyle(color: _mutedText),
             labelMedium: TextStyle(color: _darkText),
             titleSmall: TextStyle(
-              color: _claudeOrange,
+              color: _orange,
               fontWeight: FontWeight.w700,
             ),
           ),
           switchTheme: SwitchThemeData(
             thumbColor: WidgetStateProperty.resolveWith(
               (states) => states.contains(WidgetState.selected)
-                  ? _claudeOrange
+                  ? _orange
                   : const Color(0xFFCBC9C4),
             ),
             trackColor: WidgetStateProperty.resolveWith(
               (states) => states.contains(WidgetState.selected)
-                  ? _claudeOrange.withValues(alpha: 0.25)
+                  ? _orange.withValues(alpha: 0.25)
                   : const Color(0xFFE8E6E1),
             ),
           ),
@@ -89,7 +89,7 @@ class AppWidget extends StatelessWidget {
             textStyle: TextStyle(color: _darkText),
           ),
           floatingActionButtonTheme: const FloatingActionButtonThemeData(
-            backgroundColor: _claudeOrange,
+            backgroundColor: _orange,
             foregroundColor: Colors.white,
           ),
         ),

@@ -86,6 +86,11 @@ class TrackingCubit extends Cubit<TrackingState> {
 
   void updateFilter(int count) => emit(state.copyWith(filterCount: count));
 
+  Future<void> clearReadings() async {
+    await _repository.clearReadings();
+    emit(state.copyWith(readings: []));
+  }
+
   @override
   Future<void> close() {
     _timer?.cancel();
