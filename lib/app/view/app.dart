@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exam/counter/counter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_exam/features/tracking/presentation/cubit/tracking_cubit.dart';
+import 'package:flutter_exam/features/tracking/presentation/pages/tracking_page.dart';
 import 'package:flutter_exam/l10n/l10n.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nb_utils/nb_utils.dart';
 
-class App extends StatelessWidget {
-  const App({super.key});
+class AppWidget extends StatelessWidget {
+  const AppWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<TrackingCubit>(
+          create: (_) => Modular.get<TrackingCubit>(),
         ),
-        useMaterial3: true,
+      ],
+      child: MaterialApp(
+        navigatorKey: navigatorKey,
+        theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.deepPurple,
+          ),
+          useMaterial3: true,
+        ),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: const TrackingPage(),
       ),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
     );
   }
 }
