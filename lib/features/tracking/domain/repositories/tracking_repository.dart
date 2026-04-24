@@ -5,4 +5,6 @@ abstract class TrackingRepository {
   Future<TargetLocationEntity> getTargetLocation();
   Future<bool> requestLocationPermission();
   Future<LocationReadingEntity> getLocationReading(TargetLocationEntity target);
+  Future<List<LocationReadingEntity>> getSavedReadings();
+  Future<void> clearReadings();
 }

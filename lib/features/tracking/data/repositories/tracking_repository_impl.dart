@@ -1,5 +1,6 @@
 import 'package:flutter_exam/features/tracking/data/datasources/location_local_datasource.dart';
 import 'package:flutter_exam/features/tracking/data/datasources/tracking_remote_datasource.dart';
+import 'package:flutter_exam/features/tracking/data/local/services/tracking_storage_service.dart';
 import 'package:flutter_exam/features/tracking/data/models/target_location_model.dart';
 import 'package:flutter_exam/features/tracking/domain/entities/location_reading_entity.dart';
 import 'package:flutter_exam/features/tracking/domain/entities/target_location_entity.dart';
@@ -7,10 +8,15 @@ import 'package:flutter_exam/features/tracking/domain/repositories/tracking_repo
 import 'package:geolocator/geolocator.dart';
 
 class TrackingRepositoryImpl implements TrackingRepository {
-  const TrackingRepositoryImpl(this._remoteDatasource, this._localDatasource);
+  const TrackingRepositoryImpl(
+    this._remoteDatasource,
+    this._localDatasource,
+    this._storageService,
+  );
 
   final TrackingRemoteDatasource _remoteDatasource;
   final LocationLocalDatasource _localDatasource;
+  final TrackingStorageService _storageService;
 
   @override
   Future<TargetLocationEntity> getTargetLocation() async {
@@ -33,11 +39,20 @@ class TrackingRepositoryImpl implements TrackingRepository {
       target.targetLat,
       target.targetLng,
     );
-    return LocationReadingEntity(
+    final reading = LocationReadingEntity(
       timestamp: DateTime.now(),
       lat: position.latitude,
       lng: position.longitude,
       distanceMeters: distance,
     );
+    await _storageService.saveReading(reading);
+    return reading;
   }
+
+  @override
+  Future<List<LocationReadingEntity>> getSavedReadings() =>
+      _storageService.getAllReadings();
+
+  @override
+  Future<void> clearReadings() => _storageService.clearAll();
 }

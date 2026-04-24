@@ -11,7 +11,9 @@ part 'tracking_state.dart';
 
 class TrackingCubit extends Cubit<TrackingState> {
   TrackingCubit(this._getTargetLocationUsecase, this._repository)
-      : super(const TrackingState());
+      : super(const TrackingState()) {
+    unawaited(_loadPersistedReadings());
+  }
 
   final GetTargetLocationUsecase _getTargetLocationUsecase;
   final TrackingRepository _repository;
@@ -21,6 +23,13 @@ class TrackingCubit extends Cubit<TrackingState> {
   Timer? _timer;
   TargetLocationEntity? _target;
   bool _isPolling = false;
+
+  Future<void> _loadPersistedReadings() async {
+    final readings = await _repository.getSavedReadings();
+    if (readings.isNotEmpty && !isClosed) {
+      emit(state.copyWith(readings: readings));
+    }
+  }
 
   Future<void> toggleTracking() async {
     if (state.isTracking) {
