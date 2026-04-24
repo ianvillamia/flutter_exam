@@ -4,6 +4,7 @@ import 'package:flutter_exam/features/tracking/presentation/cubit/tracking_cubit
 import 'package:flutter_exam/features/tracking/presentation/pages/tracking_page.dart';
 import 'package:flutter_exam/l10n/l10n.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class AppWidget extends StatelessWidget {
@@ -60,15 +61,15 @@ class AppWidget extends StatelessWidget {
             color: Color(0xFFE0DDD8),
             thickness: 1,
           ),
-          textTheme: const TextTheme(
-            titleMedium: TextStyle(
+          textTheme: GoogleFonts.juaTextTheme().copyWith(
+            titleMedium: GoogleFonts.jua(
               color: _darkText,
               fontWeight: FontWeight.w600,
             ),
-            bodyMedium: TextStyle(color: _darkText),
-            bodySmall: TextStyle(color: _mutedText),
-            labelMedium: TextStyle(color: _darkText),
-            titleSmall: TextStyle(
+            bodyMedium: GoogleFonts.jua(color: _darkText),
+            bodySmall: GoogleFonts.jua(color: _mutedText),
+            labelMedium: GoogleFonts.jua(color: _darkText),
+            titleSmall: GoogleFonts.jua(
               color: _orange,
               fontWeight: FontWeight.w700,
             ),
