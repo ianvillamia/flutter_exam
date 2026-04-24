@@ -1,3 +1,4 @@
+import 'package:flutter_exam/features/tracking/data/datasources/location_local_datasource.dart';
 import 'package:flutter_exam/features/tracking/data/datasources/tracking_remote_datasource.dart';
 import 'package:flutter_exam/features/tracking/data/repositories/tracking_repository_impl.dart';
 import 'package:flutter_exam/features/tracking/domain/repositories/tracking_repository.dart';
@@ -10,6 +11,7 @@ class AppModule extends Module {
   void binds(Injector i) {
     i
       ..addSingleton<TrackingRemoteDatasource>(TrackingRemoteDatasourceImpl.new)
+      ..addSingleton<LocationLocalDatasource>(LocationLocalDatasourceImpl.new)
       ..addSingleton<TrackingRepository>(TrackingRepositoryImpl.new)
       ..addSingleton<GetTargetLocationUsecase>(GetTargetLocationUsecase.new)
       ..addSingleton<TrackingCubit>(TrackingCubit.new);
