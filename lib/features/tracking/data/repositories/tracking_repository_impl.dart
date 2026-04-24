@@ -21,7 +21,7 @@ class TrackingRepositoryImpl implements TrackingRepository {
   @override
   Future<TargetLocationEntity> getTargetLocation() async {
     final json = await _remoteDatasource.getTargetLocation();
-    return TargetLocationModel.fromJson(json);
+    return TargetLocationModelMapper.fromMap(json);
   }
 
   @override
