@@ -34,8 +34,8 @@ class ToggleCard extends StatelessWidget {
                         : 'Toggle to begin location polling',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: state.isTracking
-                              ? Colors.green.shade700
-                              : Colors.grey,
+                              ? Theme.of(context).colorScheme.primary
+                              : Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                   ),
                 ],
@@ -50,8 +50,6 @@ class ToggleCard extends StatelessWidget {
             else
               Switch(
                 value: state.isTracking,
-                activeThumbColor: Colors.green,
-                activeTrackColor: Colors.green.shade200,
                 onChanged: (_) =>
                     context.read<TrackingCubit>().toggleTracking(),
               ),

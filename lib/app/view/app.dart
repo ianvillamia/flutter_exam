@@ -9,6 +9,12 @@ import 'package:nb_utils/nb_utils.dart';
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
 
+  static const _orange = Color(0xFFD97757);
+  static const _warmBackground = Color(0xFFF5F4F0);
+  static const _warmSurface = Color(0xFFFAF9F7);
+  static const _darkText = Color(0xFF1A1915);
+  static const _mutedText = Color(0xFF6B6860);
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -20,10 +26,72 @@ class AppWidget extends StatelessWidget {
       child: MaterialApp(
         navigatorKey: navigatorKey,
         theme: ThemeData(
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.deepPurple,
+          colorScheme: ColorScheme.light(
+            primary: _claudeOrange,
+            primaryContainer: _claudeOrange.withValues(alpha: 0.12),
+            onPrimaryContainer: _claudeOrange,
+            secondary: _claudeOrange,
+            surface: _warmSurface,
+            onSurface: _darkText,
+            onSurfaceVariant: _mutedText,
+            outline: const Color(0xFFE0DDD8),
           ),
-          useMaterial3: true,
+          scaffoldBackgroundColor: _warmBackground,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: _warmSurface,
+            foregroundColor: _darkText,
+            elevation: 0,
+            scrolledUnderElevation: 1,
+            titleTextStyle: TextStyle(
+              color: _darkText,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          cardTheme: CardThemeData(
+            color: _warmSurface,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: const BorderSide(color: Color(0xFFE0DDD8)),
+            ),
+          ),
+          dividerTheme: const DividerThemeData(
+            color: Color(0xFFE0DDD8),
+            thickness: 1,
+          ),
+          textTheme: const TextTheme(
+            titleMedium: TextStyle(
+              color: _darkText,
+              fontWeight: FontWeight.w600,
+            ),
+            bodyMedium: TextStyle(color: _darkText),
+            bodySmall: TextStyle(color: _mutedText),
+            labelMedium: TextStyle(color: _darkText),
+            titleSmall: TextStyle(
+              color: _claudeOrange,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          switchTheme: SwitchThemeData(
+            thumbColor: WidgetStateProperty.resolveWith(
+              (states) => states.contains(WidgetState.selected)
+                  ? _claudeOrange
+                  : const Color(0xFFCBC9C4),
+            ),
+            trackColor: WidgetStateProperty.resolveWith(
+              (states) => states.contains(WidgetState.selected)
+                  ? _claudeOrange.withValues(alpha: 0.25)
+                  : const Color(0xFFE8E6E1),
+            ),
+          ),
+          dropdownMenuTheme: const DropdownMenuThemeData(
+            textStyle: TextStyle(color: _darkText),
+          ),
+          floatingActionButtonTheme: const FloatingActionButtonThemeData(
+            backgroundColor: _claudeOrange,
+            foregroundColor: Colors.white,
+          ),
         ),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
