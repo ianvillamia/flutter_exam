@@ -12,16 +12,44 @@ class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
 
   @override
+  void onCreate(BlocBase<dynamic> bloc) {
+    super.onCreate(bloc);
+    developer.log('[CREATE] ${bloc.runtimeType}');
+  }
+
+  @override
+  void onClose(BlocBase<dynamic> bloc) {
+    super.onClose(bloc);
+    developer.log('[CLOSE]  ${bloc.runtimeType}');
+  }
+
+  @override
   void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
     super.onChange(bloc, change);
-    developer.log('onChange(${bloc.runtimeType}, $change)');
+    developer.log(
+      '[CHANGE] ${bloc.runtimeType}\n'
+      '  current : ${change.currentState}\n'
+      '  next    : ${change.nextState}',
+    );
+  }
+
+  @override
+  void onTransition(
+    Bloc<dynamic, dynamic> bloc,
+    Transition<dynamic, dynamic> transition,
+  ) {
+    super.onTransition(bloc, transition);
+    developer.log(
+      '[TRANSITION] ${bloc.runtimeType}\n'
+      '  event   : ${transition.event}\n'
+      '  current : ${transition.currentState}\n'
+      '  next    : ${transition.nextState}',
+    );
   }
 
   @override
   void onError(BlocBase<dynamic> bloc, Object error, StackTrace stackTrace) {
-    developer.log(
-      'onError(${bloc.runtimeType}, $error, $stackTrace)',
-    );
+    developer.log('[ERROR]  ${bloc.runtimeType} — $error', error: error);
     super.onError(bloc, error, stackTrace);
   }
 }
