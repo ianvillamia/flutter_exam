@@ -1,6 +1,6 @@
 import 'package:flutter_exam/features/tracking/data/datasources/location_local_datasource.dart';
 import 'package:flutter_exam/features/tracking/data/datasources/tracking_remote_datasource.dart';
-import 'package:flutter_exam/features/tracking/data/local/services/tracking_storage_service.dart';
+import 'package:flutter_exam/features/tracking/data/datasources/tracking_storage_service.dart';
 import 'package:flutter_exam/features/tracking/data/models/target_location_model.dart';
 import 'package:flutter_exam/features/tracking/domain/entities/location_reading_entity.dart';
 import 'package:flutter_exam/features/tracking/domain/entities/target_location_entity.dart';

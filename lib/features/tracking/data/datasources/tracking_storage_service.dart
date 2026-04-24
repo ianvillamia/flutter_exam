@@ -1,4 +1,4 @@
-import 'package:flutter_exam/features/tracking/data/local/models/location_reading_hive_model.dart';
+import 'package:flutter_exam/features/tracking/data/models/location_reading_hive_model.dart';
 import 'package:flutter_exam/features/tracking/domain/entities/location_reading_entity.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 

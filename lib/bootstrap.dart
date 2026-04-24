@@ -3,8 +3,8 @@ import 'dart:developer' as developer;
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_exam/features/tracking/data/local/models/location_reading_hive_model.dart';
-import 'package:flutter_exam/features/tracking/data/local/services/tracking_storage_service.dart';
+import 'package:flutter_exam/features/tracking/data/datasources/tracking_storage_service.dart';
+import 'package:flutter_exam/features/tracking/data/models/location_reading_hive_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:nb_utils/nb_utils.dart';
 

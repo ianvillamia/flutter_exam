@@ -41,16 +41,13 @@ lib/
 │       ├── data/
 │       │   ├── datasources/
 │       │   │   ├── tracking_remote_datasource.dart   # API contract + stub impl
-│       │   │   └── location_local_datasource.dart    # Geolocator wrapper
-│       │   ├── local/
-│       │   │   ├── models/
-│       │   │   │   └── location_reading_hive_model.dart   # Hive object + TypeAdapter
-│       │   │   └── services/
-│       │   │       └── tracking_storage_service.dart      # Hive read/write service
+│       │   │   ├── location_local_datasource.dart    # Geolocator wrapper
+│       │   │   └── tracking_storage_service.dart     # Hive read/write datasource
 │       │   ├── models/
-│       │   │   └── target_location_model.dart   # dart_mappable model, extends entity
+│       │   │   ├── location_reading_hive_model.dart  # Hive object + TypeAdapter
+│       │   │   └── target_location_model.dart        # dart_mappable model, extends entity
 │       │   └── repositories/
-│       │       └── tracking_repository_impl.dart  # Implements domain contract
+│       │       └── tracking_repository_impl.dart     # Implements domain contract
 │       │
 │       ├── domain/
 │       │   ├── entities/
@@ -151,6 +148,7 @@ Data sources are the lowest level — each one talks to exactly one external sys
 |---|---|
 | `TrackingRemoteDatasource` | Fetches the target location JSON from the remote API |
 | `LocationLocalDatasource` | Wraps `Geolocator` — permission requests and `getCurrentPosition()` |
+| `TrackingStorageService` | Wraps the Hive box — `saveReading`, `getAllReadings`, `clearAll` |
 
 ### Models
 
@@ -166,9 +164,9 @@ class TargetLocationModel extends TargetLocationEntity
 
 ### Local Storage — Hive
 
-**`LocationReadingHiveModel`** is a `HiveObject` that mirrors `LocationReadingEntity`. Timestamp is stored as `int` (millisecondsSinceEpoch) to avoid relying on Hive's built-in DateTime adapter across versions. A hand-written `TypeAdapter` handles binary serialization using field-index encoding.
+**`LocationReadingHiveModel`** is a `HiveObject` that mirrors `LocationReadingEntity`. Timestamp is stored as `int` (millisecondsSinceEpoch) to avoid relying on Hive's built-in DateTime adapter across versions. A hand-written `TypeAdapter` handles binary serialization using field-index encoding. It lives in `models/` alongside the other data-layer models.
 
-**`TrackingStorageService`** wraps the Hive box and exposes three methods — `saveReading`, `getAllReadings`, and `clearAll` — keeping all Hive-specific code in one place.
+**`TrackingStorageService`** wraps the Hive box and exposes three methods — `saveReading`, `getAllReadings`, and `clearAll` — keeping all Hive-specific code in one place. It lives in `datasources/` alongside the other datasources.
 
 ### Repository Implementation
 
@@ -176,9 +174,9 @@ class TargetLocationModel extends TargetLocationEntity
 
 ```
 TrackingRepositoryImpl
-  ├── TrackingRemoteDatasource   → fetches target from API
-  ├── LocationLocalDatasource    → reads GPS via Geolocator
-  └── TrackingStorageService     → persists/loads readings via Hive
+  ├── TrackingRemoteDatasource  → fetches target from API
+  ├── LocationLocalDatasource   → reads GPS via Geolocator
+  └── TrackingStorageService    → persists/loads readings via Hive
 ```
 
 On each `getLocationReading()` call it:
