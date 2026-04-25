@@ -12,6 +12,18 @@ A Flutter application that polls the device GPS every 5 seconds, calculates the 
 
 ---
 
+## Quick Start
+
+All common tasks are available via `make`. Run `make help` to see the full list.
+
+### First-time setup
+
+```sh
+make rebuild   # clean → flutter pub get → code generation
+```
+
+---
+
 ## Architecture Overview
 
 The project follows **Clean Architecture**, separating code into three concentric layers that depend strictly inward:
@@ -460,6 +472,56 @@ flutter gen-l10n --arb-dir="lib/l10n/arb"
 ```
 
 Alternatively, run `flutter run` and code generation will take place automatically.
+
+---
+
+## Commands Reference
+
+All commands are run via `make`. See `make help` for a quick overview.
+
+### Run the app
+
+```sh
+make run-dev       # development flavor
+make run-staging   # staging flavor
+make run-prod      # production flavor
+```
+
+### Code generation
+
+Required after modifying any `dart_mappable` annotated model:
+
+```sh
+make codegen
+```
+
+### Tests & coverage
+
+```sh
+make test        # run all tests with randomized ordering
+make coverage    # run tests + generate and open HTML coverage report
+```
+
+### Lint
+
+```sh
+make lint        # bloc_lint static analysis
+```
+
+### Translations
+
+```sh
+make l10n        # regenerate ARB translation files
+```
+
+### Clean & rebuild
+
+```sh
+make clean       # flutter clean + remove build artifacts
+make rebuild     # full reset: clean → pub get → codegen
+```
+
+---
 
 [coverage_badge]: coverage_badge.svg
 [internationalization_link]: https://docs.flutter.dev/ui/internationalization
